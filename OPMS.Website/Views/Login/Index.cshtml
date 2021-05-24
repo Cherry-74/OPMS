@@ -1,0 +1,170 @@
+﻿@model OPMS.Data.User
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_Shared/LoginMasterLayoutPage.cshtml";
+}
+
+<div class="container-login">
+    <div class="header-login">
+        <div class="header-login-box">
+            <span class="header-text-position">
+                <i href="#"></i>Welcome To OPMS
+            </span>
+            <a href="#"><i class="fa fa-question"></i>&nbsp;&nbsp;Forgot Password?</a>
+        </div>
+    </div>
+    <div class="login-box">
+        <div class="login">
+            @using (Html.BeginForm("LoginValidate", "Login", FormMethod.Post))
+            {
+                <div style="display:none">
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary()
+                </div>
+
+                <div class="login-input-icon">
+                    <div class="group">
+                        @*<label for="username" class="label">Username</label>*@
+                        @*<input type="text" class="input" id="txtUserName">*@
+
+                        @Html.LabelFor(model => model.UserName)
+
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "login-input-icon" })
+                        @Html.ValidationMessageFor(model => model.UserName)
+
+
+                    </div>
+                    <div class="fa fa-lock">
+
+                        @Html.LabelFor(model => model.Password)
+                        @Html.PasswordFor(model => model.Password, new { @class = "login-input-icon" })
+                        @Html.ValidationMessageFor(model => model.Password)
+
+
+                        @*<label for="pass" class="label">Password</label>
+                    <input id="txtPassword" type="password" class="input" data-type="password">*@
+                    </div>
+
+                    <div class="group">
+                        <button id="loginBtn">
+                            Login
+                        </button></div>
+                    <div class="hr"></div>
+                    
+                </div>
+
+            }
+            @*<h1>Authentication</h1>
+        <input id="txtUserName" type="text" placeholder="UserName" />
+        <label for="username" class="login-input-icon">
+            <i class="fa fa-user"></i>
+        </label>
+        <input id="txtPassword" type="password" placeholder="Password" />
+        <label for="password" class="login-input-icon">
+            <i class="fa fa-lock"></i>
+        </label>
+        <label class="login-checkbox">
+            <input type="checkbox">
+            <span class="checkmark"></span>&nbsp;&nbsp;Remember
+        </label>
+        <button id="loginBtn">Login</button>*@
+        </div>
+    </div>
+</div>
+
+
+
+@*<script>
+    $(document).ready(function () {
+
+        $("#loginBtn").click(function () {
+            var postData =
+            {
+                "UserName": $("#txtUserName").val(),
+                "Password": $("#txtPassword").val()
+            };
+
+
+            console.log(postData);
+            console.log(JSON.stringify(postData));
+            $.ajax({
+                type: "POST",
+                url: URL + 'api/User/Validate',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(postData),
+                dataType: "json",
+                success: function (msg) {
+
+                    if (msg == null) {
+                        window.location.href = "/Admin/Index";
+
+                    }
+                    else {
+                        window.location.href = "/Login/Failure";
+                    }
+                },
+                error: function (req, status, error) {
+                    alert("Error try again");
+                }
+            });
+
+        });
+
+
+    });
+</script>*@
+
+@*<script>
+        $(document).ready(function () {
+
+            $("#SignUpBtn").click(function () {
+                var userName = $("#user").val();
+                var oldPassword = $("#pass").val();
+                var cPassword = $("#confirmpass").val();
+
+                if (userName != "") {
+
+                    if (oldPassword == cPassword) {
+                        var postData =
+                        {
+                            "UserName": userName,
+                            "NewPassword": cPassword
+                        };
+                        console.log(postData);
+                        console.log(JSON.stringify(postData));
+                        $.ajax({
+                            type: "POST",
+                            url: URL + 'api/User/Add',
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify(postData),
+                            dataType: "json",
+                            success: function (msg) {
+
+                                if (msg == null) {
+                                    alert("Unknown Error!!!");
+                                }
+                                else
+                                {
+                                    if (msg == 1)
+                                    { alert("SignUp Successfully"); }
+
+                                }
+
+                            },
+                            error: function (req, status, error) {
+                                alert("Error try again");
+                            }
+                        });
+                    }
+                    else {
+                        alert("Password and Confirm Password are not same.");
+                    }
+                }
+                else {
+                    alert("Please enter user name");
+                }
+            });
+
+        });
+    </script>*@

@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "ParkingAddress";
+    Layout = "~/Views/_Shared/AdminMasterLayoutPage.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <br><br>
+                <h2>Parking Address</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                Address1
+            </div>
+            <div class="col-lg-6" style="padding:2px">
+                <input id="Address1" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                Address2
+            </div>
+            <div class="col-lg-6" style="padding:2px">
+                <input id="Address2" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                CityName
+            </div>
+            <div class="col-lg-6" style="padding:2px">
+                <div id="comboBoxCity"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <input type="button" class="btn btn-success pull-right" value="Add" id="ParkingAddressBtnAdd" />
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <br>
+        <br>
+        <br>
+        <div id="ParkingAddressGrid"></div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+
+        var url = URL + "api/City/GetAll";
+        // prepare the data
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'Name' },
+                { name: 'CityId' }
+            ],
+            url: url,
+            async: true
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+        // Create a jqxDropDownList
+        $("#comboBoxCity").jqxComboBox({ source: dataAdapter, displayMember: "Name", valueMember: "CityId", width: 150, height: 30, });
+
+
+        var url = URL + "api/ParkingAddress/GetAll";
+        // prepare the data
+
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'ParkingAddressId', type: 'int' },
+                { name: 'Address1' },
+                { name: 'Address2' },
+                { name: 'Name' },
+            ],
+            id: 'Id',
+            url: url,
+            root: 'data'
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+
+        $("#ParkingAddressGrid").jqxGrid(
+            {
+                width: '100%',
+                source: dataAdapter,
+                columnsresize: true,
+                columns: [
+                    { text: 'Id', dataField: 'ParkingAddressId' },
+                    { text: 'Address1', dataField: 'Address1' },
+                    { text: 'Address2', dataField: 'Address2' },
+                    { text: 'City Name', dataField: 'Name' },
+                ]
+            });
+    });
+
+
+    $("#ParkingAddressBtnAdd").click(function () {
+
+        var add1 = $("#Address1").val();
+        var add2 = $("#Address2").val();
+        var cityItem = $("#comboBoxCity").jqxComboBox('getSelectedItem');
+
+        var cityId = cityItem.value;
+
+            var postData = {
+                "CityId": cityId,
+                "Address1": add1,
+                "Address2": add2
+
+            };
+
+            $.ajax({
+                type: "POST",
+                url: URL + 'api/ParkingAddress/Add',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(postData),
+                dataType: "json",
+                success: function (msg) {
+
+                    if (msg == 1) {
+                        alert("ParkingAddress Inserted Successfully");
+                        window.location.reload();
+                    }
+
+
+                },
+                error: function (req, status, error) {
+                    alert("Error try again");
+                }
+            });
+
+    });
+</script>
+
+

@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Styles/LoginStyle.css" rel="stylesheet" />
+    <script src="~/content/jquery.min.js"></script>
+    <script src="~/content/particles.min.js"></script>
+    @*<script src="~/Script/LoginScript.js"></script>*@
+    <script>
+        var URL = '@System.Configuration.ConfigurationManager.AppSettings["URL"]';
+    </script>
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

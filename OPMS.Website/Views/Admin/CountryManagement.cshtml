@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "CountryManagement";
+    Layout = "~/Views/_Shared/AdminMasterLayoutPage.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-lg-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <br><br>
+                <h2>Country Input Form</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                Country Name
+            </div>
+            <div class="col-lg-6" style="padding:2px">
+                <input id="countryName" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <input type="button" class="btn btn-primary pull-right" value="Add" id="countryBtnAdd" />
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <br>
+        <br>
+        <br>
+        <div id="countryGrid"></div>
+    </div>
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var url = URL + "api/Country/GetAll";
+        // prepare the data
+       
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'CountryId', type: 'int' },
+                { name: 'CountryName' },
+
+            ],
+            id: 'Id',
+            url: url,
+            root: 'data'
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+
+        $("#countryGrid").jqxGrid(
+            {
+                width: '100%',
+                source: dataAdapter,
+                columnsresize: true,
+                columns: [
+                    { text: 'Id', dataField: 'CountryId' },
+                    { text: 'Country Name', dataField: 'CountryName' },
+
+                ]
+            });
+
+
+
+
+    });
+
+
+    $("#countryBtnAdd").click(function () {
+
+        var countryName = $("#countryName").val();
+
+
+
+            var postData = {
+                "CountryName": countryName
+
+            };
+
+            $.ajax({
+                type: "POST",
+                url: URL + 'api/Country/Add',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(postData),
+                dataType: "json",
+                success: function (msg) {
+
+                    if (msg == 1) {
+                        alert("Country Inserted Successfully");
+                        window.location.reload();
+                    }
+
+
+                },
+                error: function (req, status, error) {
+                    alert("Error try again");
+                }
+            });
+
+    });
+</script>

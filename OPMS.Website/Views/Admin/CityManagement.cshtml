@@ -1,0 +1,189 @@
+﻿
+@{
+    ViewBag.Title = "CityManagement";
+    Layout = "~/Views/_Shared/AdminMasterLayoutPage.cshtml";
+}
+<div class="row">
+
+    <div class="col-lg-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <br><br>
+                <h2>City Input Form</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                Country Name
+            </div>
+            <div class="col-lg-6" style="padding:2px">
+                <div id="dropDownCountry"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                State Name
+            </div>
+            <div class="col-lg-6" style="padding:2px">
+                <div id="dropDownState"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                City Name
+            </div>
+            <div class="col-lg-6" style="padding:2px">
+                <input id="cityName" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <input type="button" class="btn btn-success pull-right" value="Add" id="assignCityBtn" />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <br><br>
+        <div id="cityGrid"></div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function (){
+
+
+        var url = URL + "api/City/GetAll";
+        // prepare the data
+        var style = {
+            headerBackgroundColor: '#4267B2',
+            headerColor: '#fff',
+            headerBackgroundHoveredColor: '#FE6602',
+            headerHoveredColor: '#fff',
+            headerBackgroundSelectedColor: '#FC3752',
+            headerSelectedColor: '#fff',
+            backgroundColor: '#fff',
+            color: '#333',
+            backgroundHoveredColor: '#FE6602',
+            hoveredColor: '#fff',
+            backgroundSelectedColor: '#FC3752',
+            selectedColor: '#fff'
+        };
+
+
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'CityId', type: 'int' },
+                { name: 'Name' },
+                { name: 'StateName'},
+                { name: 'CountryName' },
+                {name:'IsActive'}
+            ],
+            id: 'Id',
+            url: url,
+            root: 'data'
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+
+        $("#cityGrid").jqxGrid(
+            {
+                width: '100%',
+                source: dataAdapter,
+                columnsresize: true,
+                columns: [
+                    { text: 'Id', dataField: 'CityId', width: 50, style: style },
+                    { text: 'City', dataField: 'Name', width: 100, style: style },
+                    { text: 'State', dataField: 'StateName', width: 100, style: style },
+                    { text: 'Country', dataField: 'CountryName', width: 100, style: style },
+                    { text: 'IsActive', dataField: 'IsActive', style: style }
+                ]
+            });
+        $("#assignCityBtn").click(function () {
+
+            var countryItem = $("#dropDownCountry").jqxDropDownList('getSelectedItem');
+            var stateItem = $("#dropDownState").jqxDropDownList('getSelectedItem');
+            var cityName = $("#cityName").val();
+
+            var countryId = countryItem.value;
+            var StateId = stateItem.value;
+
+            var postData = {
+                "CountryId": countryId,
+                "StateId": StateId,
+                "CityName": cityName
+            };
+
+            $.ajax({
+                type: "POST",
+                url: URL + 'api/City/Add',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(postData),
+                dataType: "json",
+                success: function (msg) {
+
+                    if (msg == 1) {
+                        alert("City Added Successfully");
+                        window.location.reload();
+                    }
+                },
+                error: function (req, status, error) {
+                    alert("Error try again");
+                }
+            });
+
+        });
+
+        var url = URL + "api/Country/GetAll";
+        // prepare the data
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'CountryName' },
+                { name: 'CountryId' }
+            ],
+            url: url,
+            async: true
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+        // Create a jqxDropDownList
+        $("#dropDownCountry").jqxDropDownList({ source: dataAdapter, displayMember: "CountryName", valueMember: "CountryId", width: 200, height: 30,});
+        $('#dropDownCountry').on('change', function (event) {
+
+            var countryid;
+            var args = event.args;
+            if (args) {
+                // index represents the item's index.
+
+                var item = args.item;
+                // get item's label and value.
+
+                var value = item.value;
+                countryid = value;
+            }
+
+            var url = URL + "api/State/GetStateByCountry/" + countryid;
+            // prepare the data
+            var source =
+            {
+                datatype: "json",
+                datafields: [
+                    { name: 'StateName' },
+                    { name: 'StateId' }
+                ],
+                url: url,
+                async: true
+            };
+            var dataAdapter = new $.jqx.dataAdapter(source);
+            // Create a jqxDropDownList
+            $("#dropDownState").jqxDropDownList({selectedIndex: 0, source: dataAdapter, displayMember: "StateName", valueMember: "StateId", width: 200, height: 30,});
+        });
+
+    });
+
+</script>

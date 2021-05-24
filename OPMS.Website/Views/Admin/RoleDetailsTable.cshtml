@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "RoleDetailsTable";
+    Layout = "~/Views/_Shared/AdminMasterLayoutPage.cshtml";
+}
+
+<div class="row">
+   
+    <div class="col-lg-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <br><br>
+                <h2>Role Input Form</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                RoleName
+            </div>
+            <div class="col-lg-6" style="padding:2px">
+                <input id="RoleName" />
+            </div>
+        </div>
+     
+        <div class="row">
+            <div class="col-lg-12">
+                <input type="button" class="btn btn-success pull-right" value="Add" id="RoleBtnAdd" />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <br><br>
+        <div id="RoleGrid"></div>
+    </div>
+</div>
+
+
+    <script>
+
+        $(document).ready(function () {
+            var url = URL + "api/Role/GetAll";
+            // prepare the data
+            var source =
+            {
+                datatype: "json",
+                datafields: [
+                    { name: 'RoleId', type: 'int' },
+                    { name: 'RoleName' },
+                    { name: 'IsActive', type: 'bool' }
+                ],
+                id: 'Id',
+                url: url,
+                root: 'data'
+            };
+            var dataAdapter = new $.jqx.dataAdapter(source);
+
+            $("#RoleGrid").jqxGrid(
+                {
+                    width: '100%',
+                    source: dataAdapter,
+                    columnsresize: true,
+                    columns: [
+                        { text: 'Id', dataField: 'RoleId', width: 200 },
+                        { text: 'RoleName', dataField: 'RoleName', width: 200 },
+                        { text: 'IsActive', dataField: 'IsActive' }
+                    ]
+                });
+
+            $("#RoleBtnAdd").click(function () {
+                var RoleName = $("#RoleName").val();
+
+                var postData = {
+                    "RoleName": RoleName
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: URL + 'api/Role/Add',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(postData),
+                    dataType: "json",
+                    success: function (msg) {
+                        if (msg == 1) {
+                            alert("Role Inserted Successfully");
+                            window.location.reload();
+                        }
+                    },
+                    error: function (req, status, error) {
+                        alert("Error try again");
+                    }
+                });
+            });
+
+        });
+
+    </script>
+
+
+

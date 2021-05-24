@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "UserDetailsTable";
+    Layout = "~/Views/_Shared/AdminMasterLayoutPage.cshtml";
+}
+
+    <div class="row">
+        <div class="col-lg-3">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <br><br>
+                    <h2>User Details Input Form</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    User Name
+                </div>
+                <div class="col-lg-6" style="padding:2px">
+                    <div id="comboBoxUsers"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    Address1
+                </div>
+                <div class="col-lg-6" style="padding:2px">
+                    <input id="Address1" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    Address2
+                </div>
+                <div class="col-lg-6" style="padding:2px">
+                    <input id="Address2" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    City Name
+                </div>
+                <div class="col-lg-6" style="padding:2px">
+                    <div id="comboBoxCity"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <input type="button" class="btn btn-success pull-right" value="Add" id="userDetailsBtnAdd" />
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1">
+            <br>
+            <br>
+            <br>
+            <div></div>
+        </div>
+        <div class="col-lg-8">
+            <br>
+            <br>
+            <br>
+            <div id="userDetailsGrid"></div>
+        </div>
+
+    </div>
+
+<Script>
+
+    $(document).ready(function () {
+        var url = URL + "api/User/GetAll";
+        // prepare the data
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'UserName' },
+                { name: 'UserId' }
+            ],
+            url: url,
+
+            async: false
+        };
+
+        var dataAdapter = new $.jqx.dataAdapter(source);
+        // Create a jqxComboBox
+        $("#comboBoxUsers").jqxComboBox({ selectedIndex: 0, source: dataAdapter, displayMember: "UserName", valueMember: "UserId", width: 200, height: 30, });
+
+
+        //Binding City
+        var url = URL + "api/City/GetAll";
+        // prepare the data
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'Name' },
+                { name: 'CityId' }
+            ],
+            url: url,
+
+            async: false
+        };
+
+
+
+        var dataAdapter = new $.jqx.dataAdapter(source);
+        // Create a jqxDropDownList
+        $("#comboBoxCity").jqxDropDownList({ selectedIndex: 0, source: dataAdapter, displayMember: "Name", valueMember: "CityId", width: 200, height: 30, });
+
+
+        var url = URL + "api/UserDetails/GetAll";
+        // prepare the data
+
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'UserDetailsId', type: 'int' },
+                { name: 'UserName' },
+                { name: 'Address1' },
+                { name: 'Address2' },
+                { name: 'Name' },
+                { name: 'IsActive', type: 'bool' }
+            ],
+            id: 'Id',
+            url: url,
+            root: 'data'
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+
+        $("#userDetailsGrid").jqxGrid(
+            {
+                width: '100%',
+                source: dataAdapter,
+                columnsresize: true,
+                columns: [
+                    { text: 'Id', dataField: 'UserDetailsId', width: 200 },
+                    { text: 'User Name', dataField: 'UserName', width: 200 },
+                    { text: 'Address1', dataField: 'Address1', width: 180 },
+                    { text: 'Address2', dataField: 'Address2', width: 180 },
+                    { text: 'City Name', dataField: 'Name', width: 180 },
+                    { text: 'IsActive', dataField: 'IsActive' }
+                ]
+            });
+
+        $("#userDetailsBtnAdd").click(function () {
+            var Address1 = $("#Address1").val();
+            var Address2 = $("#Address2").val();
+            var Useritem = $("#comboBoxUsers").jqxComboBox('getSelectedItem');
+            var Cityitem = $("#comboBoxCity").jqxDropDownList('getSelectedItem');
+            var Userid = Useritem.value;
+            var Cityid= Cityitem.value;
+
+            var postData = {
+                "Address1": Address1,
+                "Address2": Address2,
+                "UserName": Userid,
+                "CityName": Cityid
+            };
+
+            $.ajax({
+                type: "POST",
+                url: URL + 'api/UserDetails/Add',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(postData),
+                dataType: "json",
+                success: function (msg) {
+
+                    alert("Data Inserted Successfully");
+                    window.location.reload();
+                },
+                error: function (req, status, error) {
+                    alert("Error try again");
+                }
+            });
+
+        });
+    });
+</Script>

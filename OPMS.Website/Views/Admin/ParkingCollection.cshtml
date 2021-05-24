@@ -1,0 +1,211 @@
+﻿
+@{
+    ViewBag.Title = "ParkingCollection";
+    Layout = "~/Views/_Shared/AdminMasterLayoutPage.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <br><br>
+                <h2>Parking Collection Input Form</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                Parking Address
+            </div>
+            <div class="col-lg-6" style="padding:2px">
+                <div id="dropDownAddress1"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                Parking Date
+            </div>
+            <div class="col-lg-6" style="padding:2px">
+                <input type="date" id="parkingDate" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                Vehicle Reg. No.
+            </div>
+            <div class="col-lg-6" style="padding:2px">
+                <input id="vehicleRegNo" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                Vehicle Type
+            </div>
+            <div class="col-lg-6" style="padding:2px">
+                <div id="dropDownvehicleType"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                Vehicle InTime
+            </div>
+            <div class="col-lg-6" style="padding:2px">
+                <input id="vehicleInTime" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                Vehicle OutTime
+            </div>
+            <div class="col-lg-6" style="padding:2px">
+                <input id="vehicleOutTime" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <input type="button" class="btn btn-success pull-right" value="Add" id="ParkingCollectionBtnAdd" />
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <br><br>
+        <div id="ParkingCollectionGrid"></div>
+    </div>
+
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+
+        var url = URL + "api/ParkingCollection/GetAll";
+        // prepare the data
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'ParkingCollectionId', type: 'int' },
+                { name: 'Address1' },
+                { name: 'Name' },
+                { name: 'ParkingDate', type: 'DateTime' },
+                { name: 'VechileRegNo' },
+                { name: 'TypeName' },
+                { name: 'InTime', type: 'DateTime' },
+                { name: 'OutTime', type: 'DateTime' },
+                { name: 'IsActive' }
+            ],
+            id: 'Id',
+            url: url,
+            root: 'data'
+        };
+
+        var dataAdapter = new $.jqx.dataAdapter(source);
+        $("#ParkingCollectionGrid").jqxGrid(
+            {
+                width: '100%',
+                source: dataAdapter,
+                columnsresize: true,
+                columns: [
+                    { text: 'Id', dataField: 'ParkingCollectionId' },
+                    { text: 'Address1', dataField: 'Address1' },
+                    { text: 'City Name', dataField: 'Name' },
+                    { text: 'Parking Date ', dataField: 'ParkingDate' },
+                    { text: 'Vechile Reg No ', dataField: 'VechileRegNo' },
+                    { text: 'Vehicle Type', dataField: 'TypeName' },
+                    //{ text: 'Parking Fees', dataField: 'Fees', },
+                    { text: 'Vehicle In Time', dataField: 'InTime' },
+                    { text: 'Vehicle Out Time', dataField: 'OutTime' },
+                    { text: 'IsActive', dataField: 'IsActive' }
+                ]
+            });
+    
+        var url = URL + "api/VechileType/GetAll";
+        // prepare the data
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'VechileTypeId', type: 'int' },
+                { name: 'TypeName' },
+            ],
+            id: 'Id',
+            url: url,
+            root: 'data'
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+        // Create a jqxDropDownList
+        $("#dropDownvehicleType").jqxDropDownList({ source: dataAdapter, displayMember: "TypeName", valueMember: "VechileTypeId", width: 200, height: 30, });
+
+
+        var url = URL + "api/ParkingAddress/GetAll";
+        // prepare the data
+
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'ParkingAddressId', type: 'int' },
+                { name: 'Address1' },
+
+            ],
+            id: 'Id',
+            url: url,
+            root: 'data'
+        };
+        var dataAdapter = new $.jqx.dataAdapter(source);
+        // Create a jqxDropDownList
+        $("#dropDownAddress1").jqxDropDownList({ source: dataAdapter, displayMember: "Address1", valueMember: "ParkingAddressId", width: 200, height: 30, });
+
+    });
+
+
+    $("#ParkingCollectionBtnAdd").click(function () {
+
+        var address = $("#dropDownAddress1").jqxDropDownList('getSelectedItem');
+        var add1 = address.value;
+
+        var cityName = $("#Name").val();
+        var parkingDate = $("#parkingDate").val();
+        var vehicleRegNo = $("#vehicleRegNo").val();
+
+        var Type = $("#dropDownvehicleType").jqxDropDownList('getSelectedItem');
+        var typeName = Type.value;
+
+        var inTime = $("#vehicleInTime").val();
+        var outTime = $("#vehicleOutTime").val();
+       // var totalFees = $("#Fees").val();
+
+            var postData = {
+                "Address1": add1,
+            "CityName": cityName,
+            "ParkingDate": parkingDate,
+            "VechileRegNo": vehicleRegNo,
+            "TypeName": typeName,
+            "InTime": inTime,
+            "OutTime": outTime
+            
+            };
+
+            $.ajax({
+                type: "POST",
+                url: URL + 'api/ParkingCollection/Add',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(postData),
+                dataType: "json",
+                success: function (msg) {
+
+                    if (msg == 1) {
+                        alert("Data Inserted Successfully");
+                        window.location.reload();
+                    }
+
+
+                },
+                error: function (req, status, error) {
+                    alert("Error try again");
+                }
+            });
+
+    });
+</script>
+

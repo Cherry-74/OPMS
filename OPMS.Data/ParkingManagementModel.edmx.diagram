@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ac0ea54b03054118844773619ac094fc" Name="Diagram1">
+        <EntityTypeShape EntityType="ParkmangtModel.City" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkmangtModel.Country" Width="1.5" PointX="1.5" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkmangtModel.ParkingAddress" Width="1.5" PointX="3.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkmangtModel.ParkingCollection" Width="1.5" PointX="6" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkmangtModel.ParkingDetail" Width="1.5" PointX="9" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkmangtModel.ParkingFee" Width="1.5" PointX="4.5" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkmangtModel.Role" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkmangtModel.State" Width="1.5" PointX="1.5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkmangtModel.User" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkmangtModel.UserDetail" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkmangtModel.UserParkingAddress" Width="1.5" PointX="6" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkmangtModel.UserRole" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ParkmangtModel.VechileType" Width="1.5" PointX="6.75" PointY="13.375" IsExpanded="true" />
+        <AssociationConnector Association="ParkmangtModel.FK_City_State" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_ParkingAddress_City" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_UserDetails_City" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_State_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_ParkingCollection_ParkingAddress" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_ParkingDetails_ParkingAddress" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_UserParkingAddress_ParkingAddress" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_ParkingCollection_ParkingDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_ParkingDetails_VechileType" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_VechileType_ParkingFees" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_UserRole_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_UserDetails_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_UserParkingAddress_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_UserRole_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_UserRole_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="ParkmangtModel.FK_UserRole_User2" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,1037 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ParkmangtModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="StateId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ParkingAddress">
+          <Key>
+            <PropertyRef Name="ParkingAddressId" />
+          </Key>
+          <Property Name="ParkingAddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="50" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ParkingCollection">
+          <Key>
+            <PropertyRef Name="ParkingCollectionId" />
+          </Key>
+          <Property Name="ParkingCollectionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParkingAddressId" Type="int" />
+          <Property Name="ParkingDate" Type="datetime" Nullable="false" />
+          <Property Name="VechileRegNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="VechileTypeId" Type="int" />
+          <Property Name="InTime" Type="datetime" Nullable="false" />
+          <Property Name="OutTime" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ParkingDetails">
+          <Key>
+            <PropertyRef Name="ParkingdetailId" />
+          </Key>
+          <Property Name="ParkingdetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParkingAddressId" Type="int" />
+          <Property Name="VechileTypeId" Type="int" />
+          <Property Name="MaxSlot" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ParkingFees">
+          <Key>
+            <PropertyRef Name="ParkingFeesId" />
+          </Key>
+          <Property Name="ParkingFeesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fees" Type="numeric" Precision="5" Scale="2" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" />
+          <Property Name="ContactNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserDetails">
+          <Key>
+            <PropertyRef Name="UserDetailsId" />
+          </Key>
+          <Property Name="UserDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="50" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserParkingAddress">
+          <Key>
+            <PropertyRef Name="UserParkingAddressId" />
+          </Key>
+          <Property Name="UserParkingAddressId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="ParkingAddressId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="VechileType">
+          <Key>
+            <PropertyRef Name="VechileTypeId" />
+          </Key>
+          <Property Name="VechileTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ParkingFeesId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <Association Name="FK_City_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingAddress_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="ParkingAddress" Type="Self.ParkingAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="ParkingAddress">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingCollection_ParkingAddress">
+          <End Role="ParkingAddress" Type="Self.ParkingAddress" Multiplicity="0..1" />
+          <End Role="ParkingCollection" Type="Self.ParkingCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingAddress">
+              <PropertyRef Name="ParkingAddressId" />
+            </Principal>
+            <Dependent Role="ParkingCollection">
+              <PropertyRef Name="ParkingAddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingCollection_ParkingDetails">
+          <End Role="ParkingDetails" Type="Self.ParkingDetails" Multiplicity="0..1" />
+          <End Role="ParkingCollection" Type="Self.ParkingCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingDetails">
+              <PropertyRef Name="ParkingdetailId" />
+            </Principal>
+            <Dependent Role="ParkingCollection">
+              <PropertyRef Name="ParkingAddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingDetails_ParkingAddress">
+          <End Role="ParkingAddress" Type="Self.ParkingAddress" Multiplicity="0..1" />
+          <End Role="ParkingDetails" Type="Self.ParkingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingAddress">
+              <PropertyRef Name="ParkingAddressId" />
+            </Principal>
+            <Dependent Role="ParkingDetails">
+              <PropertyRef Name="ParkingAddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingDetails_VechileType">
+          <End Role="VechileType" Type="Self.VechileType" Multiplicity="0..1" />
+          <End Role="ParkingDetails" Type="Self.ParkingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VechileType">
+              <PropertyRef Name="VechileTypeId" />
+            </Principal>
+            <Dependent Role="ParkingDetails">
+              <PropertyRef Name="VechileTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_State_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="State" Type="Self.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDetails_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="UserDetails">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDetails_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserParkingAddress_ParkingAddress">
+          <End Role="ParkingAddress" Type="Self.ParkingAddress" Multiplicity="0..1" />
+          <End Role="UserParkingAddress" Type="Self.UserParkingAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingAddress">
+              <PropertyRef Name="ParkingAddressId" />
+            </Principal>
+            <Dependent Role="UserParkingAddress">
+              <PropertyRef Name="ParkingAddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserParkingAddress_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserParkingAddress" Type="Self.UserParkingAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserParkingAddress">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_User2">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VechileType_ParkingFees">
+          <End Role="ParkingFees" Type="Self.ParkingFees" Multiplicity="0..1" />
+          <End Role="VechileType" Type="Self.VechileType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingFees">
+              <PropertyRef Name="ParkingFeesId" />
+            </Principal>
+            <Dependent Role="VechileType">
+              <PropertyRef Name="ParkingFeesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ParkmangtModelStoreContainer">
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParkingAddress" EntityType="Self.ParkingAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParkingCollection" EntityType="Self.ParkingCollection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParkingDetails" EntityType="Self.ParkingDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ParkingFees" EntityType="Self.ParkingFees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserParkingAddress" EntityType="Self.UserParkingAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VechileType" EntityType="Self.VechileType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_City_State" Association="Self.FK_City_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingAddress_City" Association="Self.FK_ParkingAddress_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="ParkingAddress" EntitySet="ParkingAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingCollection_ParkingAddress" Association="Self.FK_ParkingCollection_ParkingAddress">
+            <End Role="ParkingAddress" EntitySet="ParkingAddress" />
+            <End Role="ParkingCollection" EntitySet="ParkingCollection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingCollection_ParkingDetails" Association="Self.FK_ParkingCollection_ParkingDetails">
+            <End Role="ParkingDetails" EntitySet="ParkingDetails" />
+            <End Role="ParkingCollection" EntitySet="ParkingCollection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingDetails_ParkingAddress" Association="Self.FK_ParkingDetails_ParkingAddress">
+            <End Role="ParkingAddress" EntitySet="ParkingAddress" />
+            <End Role="ParkingDetails" EntitySet="ParkingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingDetails_VechileType" Association="Self.FK_ParkingDetails_VechileType">
+            <End Role="VechileType" EntitySet="VechileType" />
+            <End Role="ParkingDetails" EntitySet="ParkingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_State_Country" Association="Self.FK_State_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="State" EntitySet="State" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDetails_City" Association="Self.FK_UserDetails_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="UserDetails" EntitySet="UserDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDetails_User" Association="Self.FK_UserDetails_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserDetails" EntitySet="UserDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserParkingAddress_ParkingAddress" Association="Self.FK_UserParkingAddress_ParkingAddress">
+            <End Role="ParkingAddress" EntitySet="ParkingAddress" />
+            <End Role="UserParkingAddress" EntitySet="UserParkingAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserParkingAddress_User" Association="Self.FK_UserParkingAddress_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserParkingAddress" EntitySet="UserParkingAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_User1" Association="Self.FK_UserRole_User1">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_User2" Association="Self.FK_UserRole_User2">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VechileType_ParkingFees" Association="Self.FK_VechileType_ParkingFees">
+            <End Role="ParkingFees" EntitySet="ParkingFees" />
+            <End Role="VechileType" EntitySet="VechileType" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ParkmangtModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="State" Relationship="Self.FK_City_State" FromRole="City" ToRole="State" />
+          <NavigationProperty Name="ParkingAddresses" Relationship="Self.FK_ParkingAddress_City" FromRole="City" ToRole="ParkingAddress" />
+          <NavigationProperty Name="UserDetails" Relationship="Self.FK_UserDetails_City" FromRole="City" ToRole="UserDetails" />
+        </EntityType>
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryId" />
+          </Key>
+          <Property Name="CountryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="States" Relationship="Self.FK_State_Country" FromRole="Country" ToRole="State" />
+        </EntityType>
+        <EntityType Name="ParkingAddress">
+          <Key>
+            <PropertyRef Name="ParkingAddressId" />
+          </Key>
+          <Property Name="ParkingAddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="City" Relationship="Self.FK_ParkingAddress_City" FromRole="ParkingAddress" ToRole="City" />
+          <NavigationProperty Name="ParkingCollections" Relationship="Self.FK_ParkingCollection_ParkingAddress" FromRole="ParkingAddress" ToRole="ParkingCollection" />
+          <NavigationProperty Name="ParkingDetails" Relationship="Self.FK_ParkingDetails_ParkingAddress" FromRole="ParkingAddress" ToRole="ParkingDetails" />
+          <NavigationProperty Name="UserParkingAddresses" Relationship="Self.FK_UserParkingAddress_ParkingAddress" FromRole="ParkingAddress" ToRole="UserParkingAddress" />
+        </EntityType>
+        <EntityType Name="ParkingCollection">
+          <Key>
+            <PropertyRef Name="ParkingCollectionId" />
+          </Key>
+          <Property Name="ParkingCollectionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParkingAddressId" Type="Int32" />
+          <Property Name="ParkingDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="VechileRegNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VechileTypeId" Type="Int32" />
+          <Property Name="InTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="OutTime" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="ParkingAddress" Relationship="Self.FK_ParkingCollection_ParkingAddress" FromRole="ParkingCollection" ToRole="ParkingAddress" />
+          <NavigationProperty Name="ParkingDetail" Relationship="Self.FK_ParkingCollection_ParkingDetails" FromRole="ParkingCollection" ToRole="ParkingDetails" />
+        </EntityType>
+        <EntityType Name="ParkingDetail">
+          <Key>
+            <PropertyRef Name="ParkingdetailId" />
+          </Key>
+          <Property Name="ParkingdetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParkingAddressId" Type="Int32" />
+          <Property Name="VechileTypeId" Type="Int32" />
+          <Property Name="MaxSlot" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="ParkingAddress" Relationship="Self.FK_ParkingDetails_ParkingAddress" FromRole="ParkingDetails" ToRole="ParkingAddress" />
+          <NavigationProperty Name="ParkingCollections" Relationship="Self.FK_ParkingCollection_ParkingDetails" FromRole="ParkingDetails" ToRole="ParkingCollection" />
+          <NavigationProperty Name="VechileType" Relationship="Self.FK_ParkingDetails_VechileType" FromRole="ParkingDetails" ToRole="VechileType" />
+        </EntityType>
+        <EntityType Name="ParkingFee">
+          <Key>
+            <PropertyRef Name="ParkingFeesId" />
+          </Key>
+          <Property Name="ParkingFeesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fees" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="VechileTypes" Relationship="Self.FK_VechileType_ParkingFees" FromRole="ParkingFees" ToRole="VechileType" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRole_Role" FromRole="Role" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Cities" Relationship="Self.FK_City_State" FromRole="State" ToRole="City" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_State_Country" FromRole="State" ToRole="Country" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserDetails" Relationship="Self.FK_UserDetails_User" FromRole="User" ToRole="UserDetails" />
+          <NavigationProperty Name="UserParkingAddresses" Relationship="Self.FK_UserParkingAddress_User" FromRole="User" ToRole="UserParkingAddress" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRole_User" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="UserRoles1" Relationship="Self.FK_UserRole_User1" FromRole="User" ToRole="UserRole" />
+          <NavigationProperty Name="UserRoles2" Relationship="Self.FK_UserRole_User2" FromRole="User" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="UserDetail">
+          <Key>
+            <PropertyRef Name="UserDetailsId" />
+          </Key>
+          <Property Name="UserDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="City" Relationship="Self.FK_UserDetails_City" FromRole="UserDetails" ToRole="City" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserDetails_User" FromRole="UserDetails" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserParkingAddress">
+          <Key>
+            <PropertyRef Name="UserParkingAddressId" />
+          </Key>
+          <Property Name="UserParkingAddressId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="ParkingAddressId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="ParkingAddress" Relationship="Self.FK_UserParkingAddress_ParkingAddress" FromRole="UserParkingAddress" ToRole="ParkingAddress" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserParkingAddress_User" FromRole="UserParkingAddress" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_UserRole_Role" FromRole="UserRole" ToRole="Role" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserRole_User" FromRole="UserRole" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_UserRole_User1" FromRole="UserRole" ToRole="User" />
+          <NavigationProperty Name="User2" Relationship="Self.FK_UserRole_User2" FromRole="UserRole" ToRole="User" />
+        </EntityType>
+        <EntityType Name="VechileType">
+          <Key>
+            <PropertyRef Name="VechileTypeId" />
+          </Key>
+          <Property Name="VechileTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParkingFeesId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="ParkingDetails" Relationship="Self.FK_ParkingDetails_VechileType" FromRole="VechileType" ToRole="ParkingDetails" />
+          <NavigationProperty Name="ParkingFee" Relationship="Self.FK_VechileType_ParkingFees" FromRole="VechileType" ToRole="ParkingFees" />
+        </EntityType>
+        <Association Name="FK_City_State">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingAddress_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="ParkingAddress" Type="Self.ParkingAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="ParkingAddress">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDetails_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="UserDetails">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_State_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="State" Type="Self.State" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryId" />
+            </Principal>
+            <Dependent Role="State">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingCollection_ParkingAddress">
+          <End Role="ParkingAddress" Type="Self.ParkingAddress" Multiplicity="0..1" />
+          <End Role="ParkingCollection" Type="Self.ParkingCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingAddress">
+              <PropertyRef Name="ParkingAddressId" />
+            </Principal>
+            <Dependent Role="ParkingCollection">
+              <PropertyRef Name="ParkingAddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingDetails_ParkingAddress">
+          <End Role="ParkingAddress" Type="Self.ParkingAddress" Multiplicity="0..1" />
+          <End Role="ParkingDetails" Type="Self.ParkingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingAddress">
+              <PropertyRef Name="ParkingAddressId" />
+            </Principal>
+            <Dependent Role="ParkingDetails">
+              <PropertyRef Name="ParkingAddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserParkingAddress_ParkingAddress">
+          <End Role="ParkingAddress" Type="Self.ParkingAddress" Multiplicity="0..1" />
+          <End Role="UserParkingAddress" Type="Self.UserParkingAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingAddress">
+              <PropertyRef Name="ParkingAddressId" />
+            </Principal>
+            <Dependent Role="UserParkingAddress">
+              <PropertyRef Name="ParkingAddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingCollection_ParkingDetails">
+          <End Role="ParkingDetails" Type="Self.ParkingDetail" Multiplicity="0..1" />
+          <End Role="ParkingCollection" Type="Self.ParkingCollection" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingDetails">
+              <PropertyRef Name="ParkingdetailId" />
+            </Principal>
+            <Dependent Role="ParkingCollection">
+              <PropertyRef Name="ParkingAddressId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingDetails_VechileType">
+          <End Role="VechileType" Type="Self.VechileType" Multiplicity="0..1" />
+          <End Role="ParkingDetails" Type="Self.ParkingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VechileType">
+              <PropertyRef Name="VechileTypeId" />
+            </Principal>
+            <Dependent Role="ParkingDetails">
+              <PropertyRef Name="VechileTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VechileType_ParkingFees">
+          <End Role="ParkingFees" Type="Self.ParkingFee" Multiplicity="0..1" />
+          <End Role="VechileType" Type="Self.VechileType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingFees">
+              <PropertyRef Name="ParkingFeesId" />
+            </Principal>
+            <Dependent Role="VechileType">
+              <PropertyRef Name="ParkingFeesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDetails_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserDetails" Type="Self.UserDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserDetails">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserParkingAddress_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserParkingAddress" Type="Self.UserParkingAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserParkingAddress">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_User1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_User2">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UpdatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ParkmangtEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="ParkingAddresses" EntityType="Self.ParkingAddress" />
+          <EntitySet Name="ParkingCollections" EntityType="Self.ParkingCollection" />
+          <EntitySet Name="ParkingDetails" EntityType="Self.ParkingDetail" />
+          <EntitySet Name="ParkingFees" EntityType="Self.ParkingFee" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="States" EntityType="Self.State" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetail" />
+          <EntitySet Name="UserParkingAddresses" EntityType="Self.UserParkingAddress" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+          <EntitySet Name="VechileTypes" EntityType="Self.VechileType" />
+          <AssociationSet Name="FK_City_State" Association="Self.FK_City_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingAddress_City" Association="Self.FK_ParkingAddress_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="ParkingAddress" EntitySet="ParkingAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDetails_City" Association="Self.FK_UserDetails_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="UserDetails" EntitySet="UserDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_State_Country" Association="Self.FK_State_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="State" EntitySet="States" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingCollection_ParkingAddress" Association="Self.FK_ParkingCollection_ParkingAddress">
+            <End Role="ParkingAddress" EntitySet="ParkingAddresses" />
+            <End Role="ParkingCollection" EntitySet="ParkingCollections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingDetails_ParkingAddress" Association="Self.FK_ParkingDetails_ParkingAddress">
+            <End Role="ParkingAddress" EntitySet="ParkingAddresses" />
+            <End Role="ParkingDetails" EntitySet="ParkingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserParkingAddress_ParkingAddress" Association="Self.FK_UserParkingAddress_ParkingAddress">
+            <End Role="ParkingAddress" EntitySet="ParkingAddresses" />
+            <End Role="UserParkingAddress" EntitySet="UserParkingAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingCollection_ParkingDetails" Association="Self.FK_ParkingCollection_ParkingDetails">
+            <End Role="ParkingDetails" EntitySet="ParkingDetails" />
+            <End Role="ParkingCollection" EntitySet="ParkingCollections" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingDetails_VechileType" Association="Self.FK_ParkingDetails_VechileType">
+            <End Role="VechileType" EntitySet="VechileTypes" />
+            <End Role="ParkingDetails" EntitySet="ParkingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VechileType_ParkingFees" Association="Self.FK_VechileType_ParkingFees">
+            <End Role="ParkingFees" EntitySet="ParkingFees" />
+            <End Role="VechileType" EntitySet="VechileTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDetails_User" Association="Self.FK_UserDetails_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserDetails" EntitySet="UserDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserParkingAddress_User" Association="Self.FK_UserParkingAddress_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserParkingAddress" EntitySet="UserParkingAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_User" Association="Self.FK_UserRole_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_User1" Association="Self.FK_UserRole_User1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_User2" Association="Self.FK_UserRole_User2">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ParkmangtModelStoreContainer" CdmEntityContainer="ParkmangtEntities">
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="ParkmangtModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="ParkmangtModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CountryName" ColumnName="CountryName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParkingAddresses">
+            <EntityTypeMapping TypeName="ParkmangtModel.ParkingAddress">
+              <MappingFragment StoreEntitySet="ParkingAddress">
+                <ScalarProperty Name="ParkingAddressId" ColumnName="ParkingAddressId" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParkingCollections">
+            <EntityTypeMapping TypeName="ParkmangtModel.ParkingCollection">
+              <MappingFragment StoreEntitySet="ParkingCollection">
+                <ScalarProperty Name="ParkingCollectionId" ColumnName="ParkingCollectionId" />
+                <ScalarProperty Name="ParkingAddressId" ColumnName="ParkingAddressId" />
+                <ScalarProperty Name="ParkingDate" ColumnName="ParkingDate" />
+                <ScalarProperty Name="VechileRegNo" ColumnName="VechileRegNo" />
+                <ScalarProperty Name="VechileTypeId" ColumnName="VechileTypeId" />
+                <ScalarProperty Name="InTime" ColumnName="InTime" />
+                <ScalarProperty Name="OutTime" ColumnName="OutTime" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParkingDetails">
+            <EntityTypeMapping TypeName="ParkmangtModel.ParkingDetail">
+              <MappingFragment StoreEntitySet="ParkingDetails">
+                <ScalarProperty Name="ParkingdetailId" ColumnName="ParkingdetailId" />
+                <ScalarProperty Name="ParkingAddressId" ColumnName="ParkingAddressId" />
+                <ScalarProperty Name="VechileTypeId" ColumnName="VechileTypeId" />
+                <ScalarProperty Name="MaxSlot" ColumnName="MaxSlot" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParkingFees">
+            <EntityTypeMapping TypeName="ParkmangtModel.ParkingFee">
+              <MappingFragment StoreEntitySet="ParkingFees">
+                <ScalarProperty Name="ParkingFeesId" ColumnName="ParkingFeesId" />
+                <ScalarProperty Name="Fees" ColumnName="Fees" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="ParkmangtModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="ParkmangtModel.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ParkmangtModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ContactNo" ColumnName="ContactNo" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDetails">
+            <EntityTypeMapping TypeName="ParkmangtModel.UserDetail">
+              <MappingFragment StoreEntitySet="UserDetails">
+                <ScalarProperty Name="UserDetailsId" ColumnName="UserDetailsId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserParkingAddresses">
+            <EntityTypeMapping TypeName="ParkmangtModel.UserParkingAddress">
+              <MappingFragment StoreEntitySet="UserParkingAddress">
+                <ScalarProperty Name="UserParkingAddressId" ColumnName="UserParkingAddressId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ParkingAddressId" ColumnName="ParkingAddressId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="ParkmangtModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VechileTypes">
+            <EntityTypeMapping TypeName="ParkmangtModel.VechileType">
+              <MappingFragment StoreEntitySet="VechileType">
+                <ScalarProperty Name="VechileTypeId" ColumnName="VechileTypeId" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="ParkingFeesId" ColumnName="ParkingFeesId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
